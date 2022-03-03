@@ -28,6 +28,7 @@ module.exports = {
         if (!cards) {
             const CardFactory = require('@tryghost/kg-card-factory');
             const defaultCards = require('@tryghost/kg-default-cards');
+            const customCards = require('../../../custom-cards');
 
             cardFactory = new CardFactory({
                 siteUrl: config.get('url'),
@@ -45,6 +46,10 @@ module.exports = {
 
             cards = defaultCards.map((card) => {
                 return cardFactory.createCard(card);
+            });
+
+            customCards.map((card) => {
+                cards.push(cardFactory.createCard(card));
             });
         }
 
